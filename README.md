@@ -267,7 +267,7 @@ pub fn tail(&self) -> Node<T> {
 }
 ```
 
-##### `is_head(&self, node: Node<T>)`, `is_tail(self, node: Node<T>)`
+##### `is_head(&self, node: &Node<T>)`, `is_tail(&self, node: &Node<T>)`
 `is_head` and `is_tail` are convenience functions provided for determining whether a *node* is the *head* or *tail*.
 
 <details>
@@ -279,9 +279,9 @@ pub fn tail(&self) -> Node<T> {
 </details>
 
 ```
-    pub fn is_tail(&self, node: Node<T>) -> bool {
-        let next_node = node.next_node;
-        let next_unwrap = next_node.unwrap().clone();
+    pub fn is_tail(&self, node: &Node<T>) -> bool {
+        let next_node = node.next_node.clone();
+        let next_unwrap = next_node.unwrap();
         let cur_node = next_unwrap.borrow().prev_node.clone().unwrap();
         if Rc::ptr_eq(&self.tail.clone().unwrap(), &cur_node) {
             true
@@ -289,9 +289,9 @@ pub fn tail(&self) -> Node<T> {
             false
         }
     }
-    pub fn is_head(&self, node: Node<T>) -> bool {
-        let next_node = node.next_node;
-        let next_unwrap = next_node.unwrap().clone();
+    pub fn is_head(&self, node: &Node<T>) -> bool {
+        let next_node = node.next_node.clone();
+        let next_unwrap = next_node.unwrap();
         let cur_node = next_unwrap.borrow().prev_node.clone().unwrap();
         if Rc::ptr_eq(&self.head.clone().unwrap(), &cur_node) {
             true
@@ -410,9 +410,9 @@ fn main() {
     //iterate forward through the list.
     println!("Forward..");
     for i in list.iter() {
-        if list.is_head(i.clone()) {
+        if list.is_head(&i) {
             println!("Head:{}", i.value); //Display the head value
-        }else if list.is_tail(i.clone()) {
+        }else if list.is_tail(&i) {
             println!("Tail:{}",i.value); //Display the tail value.
         }
         i.mutate(4 * i.value); //multiply the value by 4 and set it using mutate.
@@ -420,9 +420,9 @@ fn main() {
     //iterate backward through the list.
     println!("Backward..");
     for i in list.iter().rev() {
-        if list.is_head(i.clone()) {
+        if list.is_head(&i) {
             println!("Head:{}", i.value); //Display the head value
-        }else if list.is_tail(i.clone()) {
+        }else if list.is_tail(&i) {
             println!("Tail:{}",i.value); //Display the tail value.
         }
     }
