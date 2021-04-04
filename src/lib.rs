@@ -96,9 +96,9 @@ impl<T: Clone + Default> LinkedList<T> {
         let tail_ref = tail_unwrap.borrow();
         tail_ref.clone()
     }
-    pub fn is_tail(&self, node: Node<T>) -> bool {
-        let next_node = node.next_node;
-        let next_unwrap = next_node.unwrap().clone();
+    pub fn is_tail(&self, node: &Node<T>) -> bool {
+        let next_node = node.next_node.clone();
+        let next_unwrap = next_node.unwrap();
         let cur_node = next_unwrap.borrow().prev_node.clone().unwrap();
         if Rc::ptr_eq(&self.tail.clone().unwrap(), &cur_node) {
             true
@@ -106,9 +106,9 @@ impl<T: Clone + Default> LinkedList<T> {
             false
         }
     }
-    pub fn is_head(&self, node: Node<T>) -> bool {
-        let next_node = node.next_node;
-        let next_unwrap = next_node.unwrap().clone();
+    pub fn is_head(&self, node: &Node<T>) -> bool {
+        let next_node = node.next_node.clone();
+        let next_unwrap = next_node.unwrap();
         let cur_node = next_unwrap.borrow().prev_node.clone().unwrap();
         if Rc::ptr_eq(&self.head.clone().unwrap(), &cur_node) {
             true
