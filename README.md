@@ -383,7 +383,7 @@ impl<T: Clone + Default> DoubleEndedIterator for LinkedListIter<T> {
 
 ## Usage:
 
-As originally stated, the main purpose of this implementation is usability. Most specifically, this implementation aims to allow the chaining of `next()`.
+As originally stated, the main purpose of this implementation is usability. Most specifically, this implementation aims to allow the chaining of `next()` and `prev()`.
 
 ### Linking to this implementation
 
